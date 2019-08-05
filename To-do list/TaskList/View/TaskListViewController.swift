@@ -11,6 +11,8 @@ class TaskListViewController: UIViewController {
     init(rootView: TaskListRootView) {
         self.rootView = rootView
         super.init(nibName: nil, bundle: nil)
+        self.rootView.delegate = self
+        self.rootView.dataSource = self
     }
     
     @available(*, unavailable, message: "Use init(rootView:) instead")
@@ -20,5 +22,21 @@ class TaskListViewController: UIViewController {
     
     override func loadView() {
         view = rootView
+    }
+}
+
+extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        <#code#>
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        <#code#>
     }
 }
