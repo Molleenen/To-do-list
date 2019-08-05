@@ -20,6 +20,12 @@ class TaskListRootView: UIView {
         return navigationBar
     }()
     
+    private let taskList: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
+        return tableView
+    }()
+    
     init() {
         super.init(frame: .zero)
     }
@@ -42,10 +48,12 @@ class TaskListRootView: UIView {
     
     private func constructHierarchy() {
         addSubview(navigationBar)
+        addSubview(taskList)
     }
     
     private func activateConstraints() {
         activateConstraintsNavigationBar()
+        activateConstraintsTableView()
     }
     
     private func activateConstraintsNavigationBar() {
@@ -54,5 +62,14 @@ class TaskListRootView: UIView {
         let top = navigationBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0)
         let trailing = navigationBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 0)
         NSLayoutConstraint.activate([top, leading, trailing])
+    }
+    
+    private func activateConstraintsTableView() {
+        taskList.translatesAutoresizingMaskIntoConstraints = false
+        let leading = taskList.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 0)
+        let top = taskList.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 0)
+        let trailing = taskList.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 0)
+        let bottom = taskList.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0)
+        NSLayoutConstraint.activate([top, leading, trailing, bottom])
     }
 }
