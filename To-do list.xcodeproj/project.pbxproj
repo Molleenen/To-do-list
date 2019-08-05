@@ -12,6 +12,7 @@
 		E61070A022F894D1002B3737 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E610709E22F894D1002B3737 /* LaunchScreen.storyboard */; };
 		E61070AD22F895D3002B3737 /* TaskListRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61070AC22F895D3002B3737 /* TaskListRootView.swift */; };
 		E61070AF22F895EE002B3737 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61070AE22F895EE002B3737 /* TaskListViewController.swift */; };
+		E67CC2F622F8A5DB00A0824C /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E67CC2F422F8A5DB00A0824C /* DataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		E61070A122F894D1002B3737 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E61070AC22F895D3002B3737 /* TaskListRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRootView.swift; sourceTree = "<group>"; };
 		E61070AE22F895EE002B3737 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
+		E67CC2F522F8A5DB00A0824C /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				E610709C22F894D1002B3737 /* Assets.xcassets */,
 				E610709E22F894D1002B3737 /* LaunchScreen.storyboard */,
 				E61070A122F894D1002B3737 /* Info.plist */,
+				E67CC2F422F8A5DB00A0824C /* DataModel.xcdatamodeld */,
 			);
 			path = "To-do list";
 			sourceTree = "<group>";
@@ -66,7 +69,6 @@
 		E61070A722F8957F002B3737 /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
-				E61070AB22F8959B002B3737 /* Model */,
 				E61070AA22F89596002B3737 /* View */,
 				E61070A822F8958B002B3737 /* ViewModel */,
 			);
@@ -87,13 +89,6 @@
 				E61070AE22F895EE002B3737 /* TaskListViewController.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		E61070AB22F8959B002B3737 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E67CC2F622F8A5DB00A0824C /* DataModel.xcdatamodeld in Sources */,
 				E610709622F894D1002B3737 /* AppDelegate.swift in Sources */,
 				E61070AD22F895D3002B3737 /* TaskListRootView.swift in Sources */,
 				E61070AF22F895EE002B3737 /* TaskListViewController.swift in Sources */,
@@ -360,6 +356,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E67CC2F422F8A5DB00A0824C /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E67CC2F522F8A5DB00A0824C /* DataModel.xcdatamodel */,
+			);
+			currentVersion = E67CC2F522F8A5DB00A0824C /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E610708A22F894D0002B3737 /* Project object */;
 }
