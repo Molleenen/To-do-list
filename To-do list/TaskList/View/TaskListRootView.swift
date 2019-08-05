@@ -7,6 +7,23 @@ import UIKit
 
 class TaskListRootView: UIView {
     
+    var delegate: UITableViewDelegate? {
+        get {
+            return nil
+        }
+        set {
+            taskList.delegate = newValue
+        }
+    }
+    var dataSource: UITableViewDataSource? {
+        get {
+            return nil
+        }
+        set {
+            taskList.dataSource = newValue
+        }
+    }
+    
     private let navigationItem: UINavigationItem = {
         let navigationItem = UINavigationItem(title: "To-do list")
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
