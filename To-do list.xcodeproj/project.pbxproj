@@ -50,12 +50,44 @@
 		E610709422F894D1002B3737 /* To-do list */ = {
 			isa = PBXGroup;
 			children = (
+				E61070A722F8957F002B3737 /* TaskList */,
 				E610709522F894D1002B3737 /* AppDelegate.swift */,
 				E610709C22F894D1002B3737 /* Assets.xcassets */,
 				E610709E22F894D1002B3737 /* LaunchScreen.storyboard */,
 				E61070A122F894D1002B3737 /* Info.plist */,
 			);
 			path = "To-do list";
+			sourceTree = "<group>";
+		};
+		E61070A722F8957F002B3737 /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				E61070AB22F8959B002B3737 /* Model */,
+				E61070AA22F89596002B3737 /* View */,
+				E61070A822F8958B002B3737 /* ViewModel */,
+			);
+			path = TaskList;
+			sourceTree = "<group>";
+		};
+		E61070A822F8958B002B3737 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E61070AA22F89596002B3737 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E61070AB22F8959B002B3737 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
