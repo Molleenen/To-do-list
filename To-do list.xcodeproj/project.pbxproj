@@ -10,6 +10,8 @@
 		E610709622F894D1002B3737 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610709522F894D1002B3737 /* AppDelegate.swift */; };
 		E610709D22F894D1002B3737 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E610709C22F894D1002B3737 /* Assets.xcassets */; };
 		E61070A022F894D1002B3737 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E610709E22F894D1002B3737 /* LaunchScreen.storyboard */; };
+		E61070AD22F895D3002B3737 /* TaskListRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61070AC22F895D3002B3737 /* TaskListRootView.swift */; };
+		E61070AF22F895EE002B3737 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61070AE22F895EE002B3737 /* TaskListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +20,8 @@
 		E610709C22F894D1002B3737 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E610709F22F894D1002B3737 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E61070A122F894D1002B3737 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E61070AC22F895D3002B3737 /* TaskListRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRootView.swift; sourceTree = "<group>"; };
+		E61070AE22F895EE002B3737 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 		E61070AA22F89596002B3737 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E61070AC22F895D3002B3737 /* TaskListRootView.swift */,
+				E61070AE22F895EE002B3737 /* TaskListViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -161,6 +167,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E610709622F894D1002B3737 /* AppDelegate.swift in Sources */,
+				E61070AD22F895D3002B3737 /* TaskListRootView.swift in Sources */,
+				E61070AF22F895EE002B3737 /* TaskListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
