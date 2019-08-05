@@ -57,11 +57,11 @@
 			isa = PBXGroup;
 			children = (
 				E61070A722F8957F002B3737 /* TaskList */,
+				E6F23CAE22F8B607004D764A /* DataModel */,
 				E610709522F894D1002B3737 /* AppDelegate.swift */,
 				E610709C22F894D1002B3737 /* Assets.xcassets */,
 				E610709E22F894D1002B3737 /* LaunchScreen.storyboard */,
 				E61070A122F894D1002B3737 /* Info.plist */,
-				E67CC2F422F8A5DB00A0824C /* DataModel.xcdatamodeld */,
 			);
 			path = "To-do list";
 			sourceTree = "<group>";
@@ -89,6 +89,14 @@
 				E61070AE22F895EE002B3737 /* TaskListViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E6F23CAE22F8B607004D764A /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				E67CC2F422F8A5DB00A0824C /* DataModel.xcdatamodeld */,
+			);
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
