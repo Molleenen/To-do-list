@@ -33,6 +33,7 @@ class TaskDetailsViewController: UIViewController {
     
     private func saveTask(withTitle title: String) {
         viewModel.addNewTask(withTitle: title)
+        self.dismiss(animated: true, completion: nil)
     }
     
     private func dismissView(){
