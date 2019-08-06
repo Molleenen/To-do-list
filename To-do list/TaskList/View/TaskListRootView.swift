@@ -43,7 +43,7 @@ class TaskListRootView: UIView {
     
     private let taskList: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
         return tableView
     }()
     
@@ -61,6 +61,10 @@ class TaskListRootView: UIView {
         setUpNavigatonBar()
         constructHierarchy()
         activateConstraints()
+    }
+    
+    func reloadData() {
+        taskList.reloadData()
     }
     
     private func setUpNavigatonBar() {

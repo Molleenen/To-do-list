@@ -19,6 +19,8 @@ class TaskListViewController: UIViewController {
         self.rootView.createNewTaskHandler = { [weak self] in
             self?.presentNewTaskScreen()
         }
+        self.viewModel.loadTasks()
+        rootView.reloadData()
     }
     
     @available(*, unavailable, message: "Use init(rootView: viewModel:) instead")
@@ -43,13 +45,18 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return 10
+        return viewModel.getNumberOfTasks()
     }
     
     func tableView(
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: UITableViewCell.self),
+            for: indexPath)
+        let index = indexPath.row
+        cell.textLabel?.text = viewModel.getTaskTitle(forIndex: index)
+        return cell
     }
 }
