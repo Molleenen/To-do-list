@@ -13,6 +13,9 @@ class TaskListViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.rootView.delegate = self
         self.rootView.dataSource = self
+        self.rootView.createNewTaskHandler = { [weak self] in
+            self?.presentNewTaskScreen()
+        }
     }
     
     @available(*, unavailable, message: "Use init(rootView:) instead")
@@ -23,6 +26,12 @@ class TaskListViewController: UIViewController {
     override func loadView() {
         view = rootView
     }
+    
+    private func presentNewTaskScreen() {
+        let rootView = TaskDetailsRootVIew()
+        let viewController = TaskDetailsViewController(rootView: rootView)
+        present(viewController, animated: true, completion: nil)
+    }
 }
 
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -30,13 +39,13 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        <#code#>
+        return 10
     }
     
     func tableView(
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        <#code#>
+        return UITableViewCell()
     }
 }
