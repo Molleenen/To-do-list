@@ -7,6 +7,10 @@ import UIKit
 
 class TaskListRootView: UIView {
     
+    typealias CreateNewTaskHandler = () -> Void
+    
+    var createNewTaskHandler: CreateNewTaskHandler?
+    
     var delegate: UITableViewDelegate? {
         get {
             return nil
@@ -27,7 +31,7 @@ class TaskListRootView: UIView {
     private let navigationItem: UINavigationItem = {
         let navigationItem = UINavigationItem(title: "To-do list")
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createNewTask))
         return navigationItem
     }()
     
@@ -88,5 +92,11 @@ class TaskListRootView: UIView {
         let trailing = taskList.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 0)
         let bottom = taskList.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0)
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
+    }
+}
+
+extension TaskListRootView {
+    @objc private func createNewTask() {
+        createNewTaskHandler?()
     }
 }
