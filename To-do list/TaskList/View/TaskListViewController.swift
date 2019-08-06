@@ -6,10 +6,13 @@
 import UIKit
 
 class TaskListViewController: UIViewController {
-    private let rootView: TaskListRootView
     
-    init(rootView: TaskListRootView) {
+    private let rootView: TaskListRootView
+    private let viewModel: TaskListViewModel
+    
+    init(rootView: TaskListRootView, viewModel: TaskListViewModel) {
         self.rootView = rootView
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.rootView.delegate = self
         self.rootView.dataSource = self
@@ -18,7 +21,7 @@ class TaskListViewController: UIViewController {
         }
     }
     
-    @available(*, unavailable, message: "Use init(rootView:) instead")
+    @available(*, unavailable, message: "Use init(rootView: viewModel:) instead")
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

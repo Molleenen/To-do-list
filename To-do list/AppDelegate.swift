@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         let taskListView: TaskListRootView = TaskListRootView()
-        let taskListViewController: TaskListViewController = TaskListViewController(rootView: taskListView)
+        let taskListViewModel: TaskListViewModel = TaskListViewModel()
+        let taskListViewController: TaskListViewController = TaskListViewController(rootView: taskListView, viewModel: taskListViewModel)
         window?.rootViewController = taskListViewController
         window?.makeKeyAndVisible()
         return true
