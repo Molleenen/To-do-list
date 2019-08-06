@@ -8,12 +8,14 @@ import UIKit
 class TaskDetailsRootVIew: UIView {
     
     typealias SaveTaskHandler = (String) -> Void
+    typealias DismissViewHandler = () -> Void
     
+    var dismissViewHandler: DismissViewHandler?
     var saveTaskHandler: SaveTaskHandler?
     
     private let navigationItem: UINavigationItem = {
         let navigationItem = UINavigationItem(title: "New task")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
         return navigationItem
     }()
     
@@ -101,5 +103,8 @@ extension TaskDetailsRootVIew {
         if let taskTitle = titleTextField.text {
             saveTaskHandler?(taskTitle)
         }
+    }
+    @objc private func dismissView() {
+        dismissViewHandler?()
     }
 }

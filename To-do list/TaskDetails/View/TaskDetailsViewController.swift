@@ -17,6 +17,9 @@ class TaskDetailsViewController: UIViewController {
         self.rootView.saveTaskHandler = { [weak self] title in
             self?.saveTask(withTitle: title)
         }
+        self.rootView.dismissViewHandler = { [weak self] in
+            self?.dismissView()
+        }
     }
     
     @available(*, unavailable, message: "Use init(rootView: viewModel:) instead")
@@ -30,5 +33,9 @@ class TaskDetailsViewController: UIViewController {
     
     private func saveTask(withTitle title: String) {
         viewModel.addNewTask(withTitle: title)
+    }
+    
+    private func dismissView(){
+        self.dismiss(animated: true, completion: nil)
     }
 }
