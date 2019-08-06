@@ -10,8 +10,12 @@ class TaskDetailsRootVIew: UIView {
     private let navigationItem: UINavigationItem = {
         let navigationItem = UINavigationItem(title: "New task")
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: nil)
         return navigationItem
+    }()
+    
+    private let saveButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: nil)
+        return button
     }()
     
     private let navigationBar: UINavigationBar = {
@@ -29,6 +33,8 @@ class TaskDetailsRootVIew: UIView {
     
     init() {
         super.init(frame: .zero)
+        saveButton.isEnabled = false
+        titleTextField.delegate = self
     }
     
     @available(*, unavailable, message: "Use init() instead")
@@ -44,6 +50,7 @@ class TaskDetailsRootVIew: UIView {
     }
     
     private func setUpNavigatonBar() {
+        navigationItem.rightBarButtonItem = saveButton
         navigationBar.items = [navigationItem]
     }
     
@@ -72,5 +79,15 @@ class TaskDetailsRootVIew: UIView {
         let top = titleTextField.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 24)
         let trailing = titleTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24)
         NSLayoutConstraint.activate([height, top, leading, trailing])
+    }
+}
+
+extension TaskDetailsRootVIew: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+        if let text = updatedString {
+            saveButton.isEnabled = !text.isEmpty ? true : false
+        }
+        return true
     }
 }
