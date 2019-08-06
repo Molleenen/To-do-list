@@ -32,6 +32,11 @@ class TaskListViewController: UIViewController {
         view = rootView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.viewModel.loadTasks()
+        rootView.reloadData()
+    }
+    
     private func presentNewTaskScreen() {
         let rootView = TaskDetailsRootVIew()
         let viewModel = TaskDetailsViewModel()
