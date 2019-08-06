@@ -29,7 +29,8 @@ class TaskListViewController: UIViewController {
     
     private func presentNewTaskScreen() {
         let rootView = TaskDetailsRootVIew()
-        let viewController = TaskDetailsViewController(rootView: rootView)
+        let viewModel = TaskDetailsViewModel()
+        let viewController = TaskDetailsViewController(rootView: rootView, viewModel: viewModel)
         present(viewController, animated: true, completion: nil)
     }
 }
