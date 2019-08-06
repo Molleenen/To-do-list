@@ -7,6 +7,10 @@ import UIKit
 
 class TaskDetailsRootVIew: UIView {
     
+    typealias SaveTaskHandler = (String) -> Void
+    
+    var saveTaskHandler: SaveTaskHandler?
+    
     private let navigationItem: UINavigationItem = {
         let navigationItem = UINavigationItem(title: "New task")
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
@@ -14,7 +18,7 @@ class TaskDetailsRootVIew: UIView {
     }()
     
     private let saveButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: nil)
+        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTask))
         return button
     }()
     
@@ -89,5 +93,13 @@ extension TaskDetailsRootVIew: UITextFieldDelegate {
             saveButton.isEnabled = !text.isEmpty ? true : false
         }
         return true
+    }
+}
+
+extension TaskDetailsRootVIew {
+    @objc private func saveTask() {
+        if let taskTitle = titleTextField.text {
+            saveTaskHandler?(taskTitle)
+        }
     }
 }

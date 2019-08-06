@@ -14,6 +14,9 @@ class TaskDetailsViewController: UIViewController {
         self.rootView = rootView
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.rootView.saveTaskHandler = { [weak self] title in
+            self?.saveTask(withTitle: title)
+        }
     }
     
     @available(*, unavailable, message: "Use init(rootView: viewModel:) instead")
@@ -23,5 +26,9 @@ class TaskDetailsViewController: UIViewController {
     
     override func loadView() {
         view = rootView
+    }
+    
+    private func saveTask(withTitle title: String) {
+        viewModel.addNewTask(withTitle: title)
     }
 }
