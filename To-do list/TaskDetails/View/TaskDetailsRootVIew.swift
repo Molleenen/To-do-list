@@ -43,9 +43,22 @@ class TaskDetailsRootVIew: UIView {
         return textField
     }()
     
+    private let doneButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "notChecked"), for: .normal)
+        return button
+    }()
+    
+    private let doneLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Not completed"
+        return label
+    }()
+    
     init() {
         super.init(frame: .zero)
         saveButton.isEnabled = false
+        doneButton.isHidden = true
         titleTextField.delegate = self
     }
     
@@ -63,6 +76,7 @@ class TaskDetailsRootVIew: UIView {
     
     func setEditingTaskMode(editedTask: Task) {
         taskTitle = editedTask.title
+        doneButton.isHidden = false
         navigationItem.title = "Task details"
         if let title = taskTitle {
             saveButton.title = "Edit"
@@ -81,11 +95,15 @@ class TaskDetailsRootVIew: UIView {
     private func constructHierarchy() {
         addSubview(navigationBar)
         addSubview(titleTextField)
+        addSubview(doneButton)
+        addSubview(doneLabel)
     }
     
     private func activateConstraints() {
         activateConstraintsNavigationBar()
         activateConstraintsTitleTextField()
+        activateConstraintsDoneButton()
+        activateConstraintsDoneLabel()
     }
     
     private func activateConstraintsNavigationBar() {
@@ -103,6 +121,22 @@ class TaskDetailsRootVIew: UIView {
         let top = titleTextField.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 24)
         let trailing = titleTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24)
         NSLayoutConstraint.activate([height, top, leading, trailing])
+    }
+    
+    private func activateConstraintsDoneButton() {
+        doneButton.translatesAutoresizingMaskIntoConstraints = false
+        let width = doneButton.widthAnchor.constraint(equalToConstant: 25)
+        let height = doneButton.heightAnchor.constraint(equalToConstant: 25)
+        let leading = doneButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24)
+        let top = doneButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 24)
+        NSLayoutConstraint.activate([width, height, top, leading])
+    }
+    
+    private func activateConstraintsDoneLabel() {
+        doneLabel.translatesAutoresizingMaskIntoConstraints = false
+        let leading = doneLabel.leadingAnchor.constraint(equalTo: doneButton.trailingAnchor, constant: 16)
+        let centerY = doneLabel.centerYAnchor.constraint(equalTo: doneButton.centerYAnchor, constant: 0)
+        NSLayoutConstraint.activate([leading, centerY])
     }
 }
 
