@@ -64,4 +64,13 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = viewModel.getTaskTitle(forIndex: index)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let index = indexPath.row
+            viewModel.deleteTask(withIndex: index)
+            viewModel.loadTasks()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
 }

@@ -30,4 +30,8 @@ class TaskListViewModel {
     func getTaskTitle(forIndex index: Int) -> String? {
         return tasks[index].title
     }
+    
+    func deleteTask(withIndex index: Int) {
+        coreDataContext?.delete(tasks[index])
+    }
 }

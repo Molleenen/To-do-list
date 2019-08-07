@@ -30,7 +30,7 @@ class TaskListRootView: UIView {
     
     private let navigationItem: UINavigationItem = {
         let navigationItem = UINavigationItem(title: "To-do list")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditing))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createNewTask))
         return navigationItem
     }()
@@ -102,5 +102,10 @@ class TaskListRootView: UIView {
 extension TaskListRootView {
     @objc private func createNewTask() {
         createNewTaskHandler?()
+    }
+    @objc private func toggleEditing() {
+        taskList.setEditing(!taskList.isEditing, animated: true)
+        navigationItem.leftBarButtonItem?.title = taskList.isEditing ? "Done" : "Edit"
+        navigationItem.rightBarButtonItem?.isEnabled = taskList.isEditing ? false : true
     }
 }
