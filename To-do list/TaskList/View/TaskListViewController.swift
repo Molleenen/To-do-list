@@ -74,15 +74,6 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let index = indexPath.row
-            viewModel.deleteTask(withIndex: index)
-            viewModel.loadTasks()
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedTask = viewModel.tasks[indexPath.row]
         let rootView = TaskDetailsRootVIew()
