@@ -39,7 +39,7 @@ class TaskListViewController: UIViewController {
     
     private func presentNewTaskScreen() {
         let rootView = TaskDetailsRootVIew()
-        let viewModel = TaskDetailsViewModel()
+        let viewModel = TaskDetailsViewModel(selectedTask: nil)
         let viewController = TaskDetailsViewController(rootView: rootView, viewModel: viewModel)
         present(viewController, animated: true, completion: nil)
     }
@@ -72,5 +72,13 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
             viewModel.loadTasks()
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedTask = viewModel.tasks[indexPath.row]
+        let rootView = TaskDetailsRootVIew()
+        let viewModel = TaskDetailsViewModel(selectedTask: selectedTask)
+        let viewController = TaskDetailsViewController(rootView: rootView, viewModel: viewModel)
+        present(viewController, animated: true, completion: nil)
     }
 }

@@ -8,10 +8,16 @@ import UIKit
 class TaskDetailsRootVIew: UIView {
     
     typealias SaveTaskHandler = (String) -> Void
+    typealias SaveChangesHandler = (String) -> Void
     typealias DismissViewHandler = () -> Void
     
     var dismissViewHandler: DismissViewHandler?
     var saveTaskHandler: SaveTaskHandler?
+    var saveChangesHandler: SaveChangesHandler?
+    
+    private var isEditing = false
+    
+    private var taskTitle: String?
     
     private let navigationItem: UINavigationItem = {
         let navigationItem = UINavigationItem(title: "New task")
@@ -19,8 +25,8 @@ class TaskDetailsRootVIew: UIView {
         return navigationItem
     }()
     
-    private let saveButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTask))
+    private var saveButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveTask))
         return button
     }()
     
@@ -53,6 +59,18 @@ class TaskDetailsRootVIew: UIView {
         setUpNavigatonBar()
         constructHierarchy()
         activateConstraints()
+    }
+    
+    func setEditingTaskMode(editedTask: Task) {
+        taskTitle = editedTask.title
+        navigationItem.title = "Task details"
+        if let title = taskTitle {
+            saveButton.title = "Edit"
+            saveButton.action = #selector(editTask)
+            titleTextField.text = title
+        }
+        saveButton.isEnabled = true
+        titleTextField.isEnabled = false
     }
     
     private func setUpNavigatonBar() {
@@ -101,10 +119,24 @@ extension TaskDetailsRootVIew: UITextFieldDelegate {
 extension TaskDetailsRootVIew {
     @objc private func saveTask() {
         if let taskTitle = titleTextField.text {
-            saveTaskHandler?(taskTitle)
+            if isEditing {
+                saveChangesHandler?(taskTitle)
+            } else {
+                saveTaskHandler?(taskTitle)
+            }
         }
     }
     @objc private func dismissView() {
         dismissViewHandler?()
+    }
+    
+    @objc private func editTask() {
+        isEditing = true
+        titleTextField.isEnabled = true
+        saveButton.title = "Save"
+        saveButton.action = #selector(saveTask)
+        if isEditing, let oldTitle = taskTitle, let newTitle = titleTextField.text {
+            saveButton.isEnabled = !oldTitle.elementsEqual(newTitle) ? true : false
+        }
     }
 }

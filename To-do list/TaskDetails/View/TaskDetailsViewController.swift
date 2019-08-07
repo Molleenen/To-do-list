@@ -17,8 +17,14 @@ class TaskDetailsViewController: UIViewController {
         self.rootView.saveTaskHandler = { [weak self] title in
             self?.saveTask(withTitle: title)
         }
+        self.rootView.saveChangesHandler = { [weak self] title in
+            self?.saveChanges(newTitle: title)
+        }
         self.rootView.dismissViewHandler = { [weak self] in
             self?.dismissView()
+        }
+        if let editedTask = viewModel.selectedTask {
+            self.rootView.setEditingTaskMode(editedTask: editedTask)
         }
     }
     
@@ -34,6 +40,11 @@ class TaskDetailsViewController: UIViewController {
     private func saveTask(withTitle title: String) {
         viewModel.addNewTask(withTitle: title)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    private func saveChanges(newTitle: String) {
+        viewModel.saveChanges(newTitle: newTitle)
+        self.dismissView()
     }
     
     private func dismissView(){

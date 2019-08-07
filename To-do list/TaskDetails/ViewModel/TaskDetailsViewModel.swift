@@ -11,6 +11,12 @@ class TaskDetailsViewModel {
     
     let coreDataContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
+    var selectedTask: Task?
+    
+    init(selectedTask: Task?) {
+        self.selectedTask = selectedTask
+    }
+    
     func addNewTask(withTitle title: String) {
         if let context = coreDataContext {
             let newTask = Task(context: context)
@@ -19,6 +25,11 @@ class TaskDetailsViewModel {
             
             saveNewItem()
         }
+    }
+    
+    func saveChanges(newTitle: String) {
+        selectedTask?.setValue(newTitle, forKey: "title")
+        saveNewItem()
     }
     
     private func saveNewItem(){
