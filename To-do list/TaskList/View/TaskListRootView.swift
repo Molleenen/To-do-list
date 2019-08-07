@@ -65,6 +65,18 @@ class TaskListRootView: UIView {
         activateConstraints()
     }
     
+    func disableEditButton() {
+        UIView.animate(withDuration: 0.2) {
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
+        }
+    }
+    
+    func enableEditButton() {
+        UIView.animate(withDuration: 0.2) {
+            self.navigationItem.leftBarButtonItem?.isEnabled = true
+        }
+    }
+    
     func reloadData() {
         taskList.reloadData()
     }
