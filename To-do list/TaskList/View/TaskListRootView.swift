@@ -8,8 +8,10 @@ import UIKit
 class TaskListRootView: UIView {
     
     typealias CreateNewTaskHandler = () -> Void
+    typealias EnterEditingModeHandler = () -> Void
     
     var createNewTaskHandler: CreateNewTaskHandler?
+    var enterEditingModeHandler: EnterEditingModeHandler?
     
     var delegate: UITableViewDelegate? {
         get {
@@ -104,6 +106,7 @@ extension TaskListRootView {
         createNewTaskHandler?()
     }
     @objc private func toggleEditing() {
+        enterEditingModeHandler?()
         taskList.setEditing(!taskList.isEditing, animated: true)
         navigationItem.leftBarButtonItem?.title = taskList.isEditing ? "Done" : "Edit"
         navigationItem.rightBarButtonItem?.isEnabled = taskList.isEditing ? false : true

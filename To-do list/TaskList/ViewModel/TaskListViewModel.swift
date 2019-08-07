@@ -34,4 +34,12 @@ class TaskListViewModel {
     func deleteTask(withIndex index: Int) {
         coreDataContext?.delete(tasks[index])
     }
+    
+    func isTaskDone(taskIndex index: Int) -> Bool {
+        return tasks[index].isDone
+    }
+    
+    func toggleIsDone(taskIndex index: Int) {
+        tasks[index].setValue(!tasks[index].isDone, forKey: "isDone")
+    }
 }
