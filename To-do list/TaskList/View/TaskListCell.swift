@@ -73,6 +73,21 @@ class TaskListCell: UITableViewCell {
             doneButton.setImage(UIImage(named: "notChecked"), for: .normal)
         }
     }
+    
+    func toggleDoneButtonVisibility(hidden: Bool) {
+        if hidden {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                self.doneButton.alpha = 0.0
+            }) { completed in
+                self.doneButton.isHidden = true
+            }
+        } else {
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                self.doneButton.isHidden = false
+                self.doneButton.alpha = 1.0
+            })
+        }
+    }
 }
 
 extension TaskListCell {

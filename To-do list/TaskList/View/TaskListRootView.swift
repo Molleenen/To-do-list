@@ -130,5 +130,10 @@ extension TaskListRootView {
         taskList.setEditing(!taskList.isEditing, animated: true)
         navigationItem.leftBarButtonItem?.title = taskList.isEditing ? "Done" : "Edit"
         navigationItem.rightBarButtonItem?.isEnabled = taskList.isEditing ? false : true
+        for cell in taskList.visibleCells {
+            if let cell = cell as? TaskListCell {
+                cell.toggleDoneButtonVisibility(hidden: taskList.isEditing)
+            }
+        }
     }
 }
