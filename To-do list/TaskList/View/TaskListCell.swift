@@ -77,11 +77,6 @@ class TaskListCell: UITableViewCell {
 
 extension TaskListCell {
     @objc private func handleButtonPress(_ sender: UIButton) {
-//        if self.doneButton.currentImage == UIImage(named: "checked") {
-//            self.doneButton.setImage(UIImage(named: "notChecked"), for: .normal)
-//        } else {
-//            self.doneButton.setImage(UIImage(named: "checked"), for: .normal)
-//        }
         self.delegate?.taskListCell(self, didPressButton: sender)
     }
 }
