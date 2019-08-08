@@ -59,6 +59,7 @@ class TaskDetailsRootVIew: UIView {
         super.init(frame: .zero)
         saveButton.isEnabled = false
         doneButton.isHidden = true
+        doneLabel.isHidden = true
         titleTextField.delegate = self
     }
     
@@ -77,6 +78,7 @@ class TaskDetailsRootVIew: UIView {
     func setEditingTaskMode(editedTask: Task) {
         taskTitle = editedTask.title
         doneButton.isHidden = false
+        doneLabel.isHidden = false
         navigationItem.title = "Task details"
         if let title = taskTitle {
             saveButton.title = "Edit"
