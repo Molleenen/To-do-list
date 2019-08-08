@@ -17,7 +17,7 @@ class TaskDetailsRootVIew: UIView {
     var saveChangesHandler: SaveChangesHandler?
     var changeDoneStateHandler: ChangeDoneStateHandler?
     
-    private var isEditing = false
+    private var isEditingTask = false
     
     private var taskTitle: String?
     private var isTaskDone: Bool?
@@ -63,6 +63,7 @@ class TaskDetailsRootVIew: UIView {
         super.init(frame: .zero)
         doneButton.isHidden = true
         doneLabel.isHidden = true
+        titleTextField.delegate = self
     }
     
     @available(*, unavailable, message: "Use init() instead")
@@ -78,11 +79,12 @@ class TaskDetailsRootVIew: UIView {
     }
     
     func setEditingTaskMode(editedTask: Task) {
-        isEditing = true
+        isEditingTask = true
         taskTitle = editedTask.title
         isTaskDone = editedTask.isDone
         doneButton.isHidden = false
         doneLabel.isHidden = false
+        saveButton.isEnabled = false
         if let isDone = isTaskDone, isDone {
             doneButton.setImage(UIImage(named: "checked"), for: .normal)
             doneLabel.text = "Completed"
@@ -152,7 +154,7 @@ class TaskDetailsRootVIew: UIView {
 extension TaskDetailsRootVIew {
     @objc private func saveTask() {
         guard let taskTitle = titleTextField.text else { return }
-        if isEditing, let isDone = isTaskDone {
+        if isEditingTask, let isDone = isTaskDone {
             saveChangesHandler?(taskTitle, isDone)
         } else {
             saveTaskHandler?(taskTitle)
@@ -164,6 +166,7 @@ extension TaskDetailsRootVIew {
     
     @objc private func toggleDoneState() {
         changeDoneStateHandler?()
+        saveButton.isEnabled = true
         UIView.animate(withDuration: 0.5) {
             guard let isTaskDone = self.isTaskDone else { return }
             if isTaskDone {
@@ -176,5 +179,14 @@ extension TaskDetailsRootVIew {
                 self.isTaskDone = !isTaskDone
             }
         }
+    }
+}
+
+extension TaskDetailsRootVIew: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let oldText = textField.text, !oldText.elementsEqual(string) {
+            saveButton.isEnabled = true
+        }
+        return true
     }
 }
