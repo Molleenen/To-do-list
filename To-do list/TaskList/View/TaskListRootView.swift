@@ -18,7 +18,7 @@ class TaskListRootView: UIView {
             return nil
         }
         set {
-            taskList.delegate = newValue
+            tableView.delegate = newValue
         }
     }
     var dataSource: UITableViewDataSource? {
@@ -26,7 +26,7 @@ class TaskListRootView: UIView {
             return nil
         }
         set {
-            taskList.dataSource = newValue
+            tableView.dataSource = newValue
         }
     }
     
@@ -43,7 +43,7 @@ class TaskListRootView: UIView {
         return navigationBar
     }()
     
-    private let taskList: UITableView = {
+    private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(TaskListCell.self, forCellReuseIdentifier: String(describing: TaskListCell.self))
         return tableView
@@ -65,37 +65,13 @@ class TaskListRootView: UIView {
         activateConstraints()
     }
     
-    func disableEditButton() {
-        UIView.animate(withDuration: 0.2) {
-            self.navigationItem.leftBarButtonItem?.isEnabled = false
-        }
-    }
-    
-    func enableEditButton() {
-        UIView.animate(withDuration: 0.2) {
-            self.navigationItem.leftBarButtonItem?.isEnabled = true
-        }
-    }
-    
-    func reloadData() {
-        taskList.reloadData()
-    }
-    
-    func reloadTableViewRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation) {
-        taskList.reloadRows(at: [indexPath], with: animation)
-    }
-    
-    func getTableView() -> UITableView {
-        return taskList
-    }
-    
     private func setUpNavigatonBar() {
         navigationBar.items = [navigationItem]
     }
     
     private func constructHierarchy() {
         addSubview(navigationBar)
-        addSubview(taskList)
+        addSubview(tableView)
     }
     
     private func activateConstraints() {
@@ -112,12 +88,38 @@ class TaskListRootView: UIView {
     }
     
     private func activateConstraintsTableView() {
-        taskList.translatesAutoresizingMaskIntoConstraints = false
-        let leading = taskList.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 0)
-        let top = taskList.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 0)
-        let trailing = taskList.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 0)
-        let bottom = taskList.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        let leading = tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 0)
+        let top = tableView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 0)
+        let trailing = tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 0)
+        let bottom = tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0)
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
+    }
+}
+
+extension TaskListRootView {
+    func disableEditButton() {
+        UIView.animate(withDuration: 0.2) {
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
+        }
+    }
+    
+    func enableEditButton() {
+        UIView.animate(withDuration: 0.2) {
+            self.navigationItem.leftBarButtonItem?.isEnabled = true
+        }
+    }
+    
+    func reloadData() {
+        tableView.reloadData()
+    }
+    
+    func reloadTableViewRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation) {
+        tableView.reloadRows(at: [indexPath], with: animation)
+    }
+    
+    func getTableView() -> UITableView {
+        return tableView
     }
 }
 
@@ -125,14 +127,15 @@ extension TaskListRootView {
     @objc private func createNewTask() {
         createNewTaskHandler?()
     }
+    
     @objc private func toggleEditing() {
         enterEditingModeHandler?()
-        taskList.setEditing(!taskList.isEditing, animated: true)
-        navigationItem.leftBarButtonItem?.title = taskList.isEditing ? "Done" : "Edit"
-        navigationItem.rightBarButtonItem?.isEnabled = taskList.isEditing ? false : true
-        for cell in taskList.visibleCells {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        navigationItem.leftBarButtonItem?.title = tableView.isEditing ? "Done" : "Edit"
+        navigationItem.rightBarButtonItem?.isEnabled = tableView.isEditing ? false : true
+        for cell in tableView.visibleCells {
             if let cell = cell as? TaskListCell {
-                cell.toggleDoneButtonVisibility(hidden: taskList.isEditing)
+                cell.toggleDoneButtonVisibility(hidden: tableView.isEditing)
             }
         }
     }
