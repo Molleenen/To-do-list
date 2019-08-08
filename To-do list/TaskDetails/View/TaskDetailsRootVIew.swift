@@ -8,7 +8,7 @@ import UIKit
 class TaskDetailsRootVIew: UIView {
     
     typealias SaveTaskHandler = (String) -> Void
-    typealias SaveChangesHandler = (String) -> Void
+    typealias SaveChangesHandler = (String, Bool) -> Void
     typealias DismissViewHandler = () -> Void
     typealias ChangeDoneStateHandler = () -> Void
     
@@ -79,6 +79,7 @@ class TaskDetailsRootVIew: UIView {
     }
     
     func setEditingTaskMode(editedTask: Task) {
+        isEditing = true
         taskTitle = editedTask.title
         isTaskDone = editedTask.isDone
         doneButton.isHidden = false
@@ -152,9 +153,9 @@ class TaskDetailsRootVIew: UIView {
 
 extension TaskDetailsRootVIew {
     @objc private func saveTask() {
-        if let taskTitle = titleTextField.text {
+        if let taskTitle = titleTextField.text, let isDone = isTaskDone {
             if isEditing {
-                saveChangesHandler?(taskTitle)
+                saveChangesHandler?(taskTitle, isDone)
             } else {
                 saveTaskHandler?(taskTitle)
             }

@@ -17,8 +17,8 @@ class TaskDetailsViewController: UIViewController {
         self.rootView.saveTaskHandler = { [weak self] title in
             self?.saveTask(withTitle: title)
         }
-        self.rootView.saveChangesHandler = { [weak self] title in
-            self?.saveChanges(newTitle: title)
+        self.rootView.saveChangesHandler = { [weak self] title, isDone in
+            self?.saveChanges(newTitle: title, isDone: isDone)
         }
         self.rootView.dismissViewHandler = { [weak self] in
             self?.dismissView()
@@ -42,8 +42,8 @@ class TaskDetailsViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    private func saveChanges(newTitle: String) {
-        viewModel.saveChanges(newTitle: newTitle)
+    private func saveChanges(newTitle: String, isDone: Bool) {
+        viewModel.saveChanges(newTitle: newTitle, isDone: isDone)
         self.dismissView()
     }
     

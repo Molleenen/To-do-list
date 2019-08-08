@@ -27,8 +27,9 @@ class TaskDetailsViewModel {
         }
     }
     
-    func saveChanges(newTitle: String) {
+    func saveChanges(newTitle: String, isDone: Bool) {
         selectedTask?.setValue(newTitle, forKey: "title")
+        selectedTask?.setValue(isDone, forKey: "isDone")
         saveNewItem()
     }
     
