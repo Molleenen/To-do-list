@@ -22,18 +22,17 @@ class TaskDetailsViewModel {
             let newTask = Task(context: context)
             newTask.title = title
             newTask.isDone = false
-            
-            saveNewItem()
+            saveContext()
         }
     }
     
     func saveChanges(newTitle: String, isDone: Bool) {
         selectedTask?.setValue(newTitle, forKey: "title")
         selectedTask?.setValue(isDone, forKey: "isDone")
-        saveNewItem()
+        saveContext()
     }
     
-    private func saveNewItem(){
+    private func saveContext(){
         do {
             try coreDataContext?.save()
         } catch {
