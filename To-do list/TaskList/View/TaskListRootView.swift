@@ -81,6 +81,14 @@ class TaskListRootView: UIView {
         taskList.reloadData()
     }
     
+    func reloadTableViewRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation) {
+        taskList.reloadRows(at: [indexPath], with: animation)
+    }
+    
+    func getTableView() -> UITableView {
+        return taskList
+    }
+    
     private func setUpNavigatonBar() {
         navigationBar.items = [navigationItem]
     }

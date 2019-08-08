@@ -71,6 +71,7 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath) as? TaskListCell
         else { return TaskListCell() }
         cell.configureCell(title: viewModel.getTaskTitle(forIndex: indexPath.row), isDone: viewModel.getTaskDoneState(forIndex: indexPath.row))
+        cell.delegate = self
         return cell
     }
     
@@ -117,5 +118,14 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
             UISwipeActionsConfiguration(actions: [deleteAction]) :
             UISwipeActionsConfiguration(actions: [doneAction])
         return configuration
+    }
+}
+
+extension TaskListViewController: TaskListCellDelegate {
+    func taskListCell(_ cell: UITableViewCell, didPressButton: UIButton) {
+        if let indexPath = rootView.getTableView().indexPath(for: cell) {
+            viewModel.toggleIsDone(taskIndex: indexPath.row)
+            rootView.reloadTableViewRow(at: indexPath, with: .automatic)
+        }
     }
 }

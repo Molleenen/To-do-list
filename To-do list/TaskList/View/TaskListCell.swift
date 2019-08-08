@@ -5,7 +5,13 @@
 
 import UIKit
 
+protocol TaskListCellDelegate: class {
+    func taskListCell(_ cell: UITableViewCell, didPressButton: UIButton)
+}
+
 class TaskListCell: UITableViewCell {
+    
+    weak var delegate: TaskListCellDelegate?
     
     private let doneButton: UIButton = {
         let button = UIButton(type: .system)
@@ -19,6 +25,7 @@ class TaskListCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        doneButton.addTarget(self, action: #selector(handleButtonPress), for: .touchUpInside)
     }
     
     @available(*, unavailable, message: "Use init() instead")
@@ -65,5 +72,16 @@ class TaskListCell: UITableViewCell {
         } else {
             doneButton.setImage(UIImage(named: "notChecked"), for: .normal)
         }
+    }
+}
+
+extension TaskListCell {
+    @objc private func handleButtonPress(_ sender: UIButton) {
+//        if self.doneButton.currentImage == UIImage(named: "checked") {
+//            self.doneButton.setImage(UIImage(named: "notChecked"), for: .normal)
+//        } else {
+//            self.doneButton.setImage(UIImage(named: "checked"), for: .normal)
+//        }
+        self.delegate?.taskListCell(self, didPressButton: sender)
     }
 }
