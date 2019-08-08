@@ -79,6 +79,15 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         return 50
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let index = indexPath.row
+            viewModel.deleteTask(withIndex: index)
+            viewModel.loadTasks()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         rootView.disableEditButton()
     }
