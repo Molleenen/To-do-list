@@ -98,15 +98,13 @@ class TaskListRootView: UIView {
 }
 
 extension TaskListRootView {
-    func disableEditButton() {
-        UIView.animate(withDuration: 0.2) {
-            self.navigationItem.leftBarButtonItem?.isEnabled = false
-        }
-    }
-    
-    func enableEditButton() {
-        UIView.animate(withDuration: 0.2) {
-            self.navigationItem.leftBarButtonItem?.isEnabled = true
+    func toggleEditButton(toEdit: Bool) {
+        if toEdit {
+            navigationItem.leftBarButtonItem?.title = "Edit"
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        } else {
+            navigationItem.leftBarButtonItem?.title = "Done"
+            navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
     
