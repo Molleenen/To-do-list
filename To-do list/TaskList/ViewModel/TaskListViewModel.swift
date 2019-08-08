@@ -33,6 +33,7 @@ class TaskListViewModel {
     
     func deleteTask(withIndex index: Int) {
         coreDataContext?.delete(tasks[index])
+        saveContext()
     }
     
     func isTaskDone(taskIndex index: Int) -> Bool {
@@ -41,5 +42,13 @@ class TaskListViewModel {
     
     func toggleIsDone(taskIndex index: Int) {
         tasks[index].setValue(!tasks[index].isDone, forKey: "isDone")
+    }
+    
+    private func saveContext(){
+        do {
+            try coreDataContext?.save()
+        } catch {
+            print("Error saving context")
+        }
     }
 }
