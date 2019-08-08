@@ -64,7 +64,6 @@ class TaskDetailsRootVIew: UIView {
         saveButton.isEnabled = false
         doneButton.isHidden = true
         doneLabel.isHidden = true
-        titleTextField.delegate = self
     }
     
     @available(*, unavailable, message: "Use init() instead")
@@ -93,12 +92,9 @@ class TaskDetailsRootVIew: UIView {
         }
         navigationItem.title = "Task details"
         if let title = taskTitle {
-            saveButton.title = "Edit"
-            saveButton.action = #selector(editTask)
             titleTextField.text = title
         }
         saveButton.isEnabled = true
-        titleTextField.isEnabled = false
     }
     
     private func setUpNavigatonBar() {
@@ -154,16 +150,6 @@ class TaskDetailsRootVIew: UIView {
     }
 }
 
-extension TaskDetailsRootVIew: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
-        if let text = updatedString {
-            saveButton.isEnabled = !text.isEmpty ? true : false
-        }
-        return true
-    }
-}
-
 extension TaskDetailsRootVIew {
     @objc private func saveTask() {
         if let taskTitle = titleTextField.text {
@@ -176,16 +162,6 @@ extension TaskDetailsRootVIew {
     }
     @objc private func dismissView() {
         dismissViewHandler?()
-    }
-    
-    @objc private func editTask() {
-        isEditing = true
-        titleTextField.isEnabled = true
-        saveButton.title = "Save"
-        saveButton.action = #selector(saveTask)
-        if isEditing, let oldTitle = taskTitle, let newTitle = titleTextField.text {
-            saveButton.isEnabled = !oldTitle.elementsEqual(newTitle) ? true : false
-        }
     }
     
     @objc private func toggleDoneState() {
