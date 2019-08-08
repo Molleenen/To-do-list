@@ -10,8 +10,6 @@ class TaskListViewController: UIViewController {
     private let rootView: TaskListRootView
     private let viewModel: TaskListViewModel
     
-    private var inEditMode: Bool = false
-    
     init(rootView: TaskListRootView, viewModel: TaskListViewModel) {
         self.rootView = rootView
         self.viewModel = viewModel
@@ -20,9 +18,6 @@ class TaskListViewController: UIViewController {
         self.rootView.dataSource = self
         self.rootView.createNewTaskHandler = { [weak self] in
             self?.presentNewTaskScreen()
-        }
-        self.rootView.enterEditingModeHandler = { [weak self] in
-            self?.viewEnterEditingMode()
         }
         self.viewModel.loadTasks()
         rootView.reloadData()
@@ -47,10 +42,6 @@ class TaskListViewController: UIViewController {
         let viewModel = TaskDetailsViewModel(selectedTask: nil)
         let viewController = TaskDetailsViewController(rootView: rootView, viewModel: viewModel)
         present(viewController, animated: true, completion: nil)
-    }
-    
-    private func viewEnterEditingMode() {
-        inEditMode = !inEditMode
     }
 }
 
