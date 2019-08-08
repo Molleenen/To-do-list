@@ -63,7 +63,9 @@ class TaskDetailsRootVIew: UIView {
         super.init(frame: .zero)
         doneButton.isHidden = true
         doneLabel.isHidden = true
-        titleTextField.delegate = self
+        saveButton.isEnabled = false
+        titleTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
     }
     
     @available(*, unavailable, message: "Use init() instead")
@@ -180,13 +182,12 @@ extension TaskDetailsRootVIew {
             }
         }
     }
-}
-
-extension TaskDetailsRootVIew: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let oldText = textField.text, !oldText.elementsEqual(string) {
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines), text != "" {
             saveButton.isEnabled = true
+        } else {
+            saveButton.isEnabled = false
         }
-        return true
     }
 }
