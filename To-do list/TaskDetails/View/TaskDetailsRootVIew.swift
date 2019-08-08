@@ -61,7 +61,6 @@ class TaskDetailsRootVIew: UIView {
     
     init() {
         super.init(frame: .zero)
-        saveButton.isEnabled = false
         doneButton.isHidden = true
         doneLabel.isHidden = true
     }
@@ -95,7 +94,6 @@ class TaskDetailsRootVIew: UIView {
         if let title = taskTitle {
             titleTextField.text = title
         }
-        saveButton.isEnabled = true
     }
     
     private func setUpNavigatonBar() {
@@ -153,12 +151,11 @@ class TaskDetailsRootVIew: UIView {
 
 extension TaskDetailsRootVIew {
     @objc private func saveTask() {
-        if let taskTitle = titleTextField.text, let isDone = isTaskDone {
-            if isEditing {
-                saveChangesHandler?(taskTitle, isDone)
-            } else {
-                saveTaskHandler?(taskTitle)
-            }
+        guard let taskTitle = titleTextField.text else { return }
+        if isEditing, let isDone = isTaskDone {
+            saveChangesHandler?(taskTitle, isDone)
+        } else {
+            saveTaskHandler?(taskTitle)
         }
     }
     @objc private func dismissView() {
