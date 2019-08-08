@@ -10,14 +10,17 @@ class TaskDetailsRootVIew: UIView {
     typealias SaveTaskHandler = (String) -> Void
     typealias SaveChangesHandler = (String) -> Void
     typealias DismissViewHandler = () -> Void
+    typealias ChangeDoneStateHandler = () -> Void
     
     var dismissViewHandler: DismissViewHandler?
     var saveTaskHandler: SaveTaskHandler?
     var saveChangesHandler: SaveChangesHandler?
+    var changeDoneStateHandler: ChangeDoneStateHandler?
     
     private var isEditing = false
     
     private var taskTitle: String?
+    private var isTaskDone: Bool?
     
     private let navigationItem: UINavigationItem = {
         let navigationItem = UINavigationItem(title: "New task")
@@ -44,8 +47,9 @@ class TaskDetailsRootVIew: UIView {
     }()
     
     private let doneButton: UIButton = {
-        let button = UIButton(type: .custom)
+        let button = UIButton(type: .system)
         button.setImage(UIImage(named: "notChecked"), for: .normal)
+        button.addTarget(self, action: #selector(toggleDoneState), for: .touchUpInside)
         return button
     }()
     
@@ -77,8 +81,16 @@ class TaskDetailsRootVIew: UIView {
     
     func setEditingTaskMode(editedTask: Task) {
         taskTitle = editedTask.title
+        isTaskDone = editedTask.isDone
         doneButton.isHidden = false
         doneLabel.isHidden = false
+        if let isDone = isTaskDone, isDone {
+            doneButton.setImage(UIImage(named: "checked"), for: .normal)
+            doneLabel.text = "Completed"
+        } else {
+            doneButton.setImage(UIImage(named: "notChecked"), for: .normal)
+            doneLabel.text = "Not Completed"
+        }
         navigationItem.title = "Task details"
         if let title = taskTitle {
             saveButton.title = "Edit"
@@ -173,6 +185,22 @@ extension TaskDetailsRootVIew {
         saveButton.action = #selector(saveTask)
         if isEditing, let oldTitle = taskTitle, let newTitle = titleTextField.text {
             saveButton.isEnabled = !oldTitle.elementsEqual(newTitle) ? true : false
+        }
+    }
+    
+    @objc private func toggleDoneState() {
+        changeDoneStateHandler?()
+        UIView.animate(withDuration: 0.5) {
+            guard let isTaskDone = self.isTaskDone else { return }
+            if isTaskDone {
+                self.doneButton.setImage(UIImage(named: "notChecked"), for: .normal)
+                self.doneLabel.text = "Not completed"
+                self.isTaskDone = !isTaskDone
+            } else {
+                self.doneButton.setImage(UIImage(named: "checked"), for: .normal)
+                self.doneLabel.text = "Completed"
+                self.isTaskDone = !isTaskDone
+            }
         }
     }
 }
