@@ -185,9 +185,13 @@ extension TaskDetailsRootVIew {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         if let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines), text != "" {
-            saveButton.isEnabled = true
+            UIView.animate(withDuration: 0.2) {
+                self.saveButton.isEnabled = true
+            }
         } else {
-            saveButton.isEnabled = false
+            UIView.animate(withDuration: 0.2) {
+                self.saveButton.isEnabled = false
+            }
         }
     }
 }
