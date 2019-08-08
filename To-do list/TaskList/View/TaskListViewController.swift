@@ -94,31 +94,6 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         let viewController = TaskDetailsViewController(rootView: rootView, viewModel: viewModel)
         present(viewController, animated: true, completion: nil)
     }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let isDone = viewModel.isTaskDone(taskIndex: indexPath.row)
-        
-        let title = isDone ? "Not done" : "Done"
-        
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action,view, completionHandler in
-            let index = indexPath.row
-            self.viewModel.deleteTask(withIndex: index)
-            self.viewModel.loadTasks()
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            completionHandler(true)
-        }
-        
-        let doneAction = UIContextualAction(style: .normal, title: title) { action, view,completionHandler in
-            self.viewModel.toggleIsDone(taskIndex: indexPath.row)
-            completionHandler(true)
-        }
-        doneAction.backgroundColor = isDone ? .red : .green
-        
-        let configuration = inEditMode ?
-            UISwipeActionsConfiguration(actions: [deleteAction]) :
-            UISwipeActionsConfiguration(actions: [doneAction])
-        return configuration
-    }
 }
 
 extension TaskListViewController: TaskListCellDelegate {
