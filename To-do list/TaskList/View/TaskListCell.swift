@@ -66,10 +66,14 @@ class TaskListCell: UITableViewCell {
     }
     
     func configureCell(title: String, isDone: Bool) {
-        taskTitle.text = title
         if isDone {
+            let attributeString =  NSMutableAttributedString(string: title)
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue,range: NSMakeRange(0, attributeString.length))
+            taskTitle.attributedText = attributeString
+            taskTitle.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
             doneButton.setImage(UIImage(named: "checked"), for: .normal)
         } else {
+            taskTitle.text = title
             doneButton.setImage(UIImage(named: "notChecked"), for: .normal)
         }
     }
