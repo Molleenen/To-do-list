@@ -40,10 +40,6 @@ class TaskListViewModel {
         saveContext()
     }
     
-    func isTaskDone(taskIndex index: Int) -> Bool {
-        return tasks[index].isDone
-    }
-    
     func toggleIsDone(taskIndex index: Int) {
         tasks[index].setValue(!tasks[index].isDone, forKey: "isDone")
         saveContext()
