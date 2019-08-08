@@ -45,7 +45,7 @@ class TaskListRootView: UIView {
     
     private let taskList: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
+        tableView.register(TaskListCell.self, forCellReuseIdentifier: String(describing: TaskListCell.self))
         return tableView
     }()
     

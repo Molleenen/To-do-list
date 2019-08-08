@@ -66,12 +66,16 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: UITableViewCell.self),
-            for: indexPath)
-        let index = indexPath.row
-        cell.textLabel?.text = viewModel.getTaskTitle(forIndex: index)
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: TaskListCell.self),
+            for: indexPath) as? TaskListCell
+        else { return TaskListCell() }
+        cell.configureCell(title: viewModel.getTaskTitle(forIndex: indexPath.row), isDone: viewModel.getTaskDoneState(forIndex: indexPath.row))
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {

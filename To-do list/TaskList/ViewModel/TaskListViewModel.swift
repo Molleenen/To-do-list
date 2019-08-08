@@ -27,8 +27,12 @@ class TaskListViewModel {
         return tasks.count
     }
     
-    func getTaskTitle(forIndex index: Int) -> String? {
-        return tasks[index].title
+    func getTaskTitle(forIndex index: Int) -> String {
+        return tasks[index].title ?? ""
+    }
+    
+    func getTaskDoneState(forIndex index: Int) -> Bool {
+        return tasks[index].isDone
     }
     
     func deleteTask(withIndex index: Int) {
