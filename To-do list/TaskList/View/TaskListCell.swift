@@ -64,7 +64,9 @@ class TaskListCell: UITableViewCell {
         let centerY = taskTitle.centerYAnchor.constraint(equalTo: doneButton.centerYAnchor, constant: 0)
         NSLayoutConstraint.activate([leading, centerY])
     }
-    
+}
+
+extension TaskListCell {
     func configureCell(title: String, isDone: Bool) {
         if isDone {
             let attributeString =  NSMutableAttributedString(string: title)
